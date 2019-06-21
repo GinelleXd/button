@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <button id="btn">点击</button>
+    <h2 class="number"></h2>
+    <p>只实现出了五秒后+1</p>
+</body>
+
+</html>
+<script src="./jquery-1.11.1.js"></script>
+<script>
+    window.onload = function () {
+        var deff = $.ajax({
+            type: "get",
+            url: "https://httpbin.org/delay/0?inc=1",
+            async: true
+        });
+        var btn = document.getElementById("btn");
+        deff.done(function (json) {
+            for (var attr in json) {
+                var num = Number(json[attr].inc);
+                $(".number").text(num);
+                var time = null;
+                btn.onclick = function () {
+                    if (time != null) {
+                        clearTimeout(t)
+                    }
+                    time = setTimeout(function () {
+                        var text = $(".number").text();
+                        $(".number").text(Number(text) + 1);
+                    }, 5000)
+                }
+                break;
+            }
+        })
+    }
+</script>
