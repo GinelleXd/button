@@ -12,9 +12,8 @@
 </head>
 
 <body>
-    <button id="btn">点击</button>
+    <input type="button" id="btn" value="点击">
     <h2 class="number"></h2>
-    <p>只实现出了五秒后+1</p>
 </body>
 
 </html>
@@ -31,15 +30,28 @@
             for (var attr in json) {
                 var num = Number(json[attr].inc);
                 $(".number").text(num);
-                var time = null;
+                var time = 5;
                 btn.onclick = function () {
-                    if (time != null) {
-                        clearTimeout(t)
-                    }
-                    time = setTimeout(function () {
-                        var text = $(".number").text();
+                    var text = $(".number").text();
+                    if(text == "五"){
+                        text = 5;
                         $(".number").text(Number(text) + 1);
-                    }, 5000)
+                    }else{
+                        $(".number").text(Number(text) + 1);
+                    }
+                    times(this);
+                }
+                function times(click) {
+                    if (time == 0) {
+                        time = 5;
+                        click.removeAttribute("disabled");
+                    } else {
+                        click.setAttribute("disabled", true);
+                        time--;
+                        setTimeout(function () {
+                            times(click)
+                        }, 1000)
+                    }
                 }
                 break;
             }
