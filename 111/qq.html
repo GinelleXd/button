@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="button" value="点击" id="btn">
+    <h2 class="text"></h2>
+</body>
+
+</html>
+<script src="./jquery-1.11.1.js"></script>
+<script>
+    window.onload = function () {
+        var deff = $.ajax({
+            type: "get",
+            url: "https://httpbin.org/delay/0?inc=1",
+            async: true,
+        });
+        var btn = document.getElementById("btn");
+        deff.done(function (json) {
+            for (var attr in json) {
+                $(".text").text(json[attr].inc);
+                var time = 0;
+                var number = Number($(".text").text());
+                function button() {
+                    btn.onclick = function () {
+                        if (time == 0) {
+                            less(time);
+                        } else {
+                            times(time);
+                        }
+                    }
+                }
+                function less(num) {
+                    time = 5;
+                    number--;
+                    $(".text").text(number);
+                }
+                function times(num) {
+                    if (time > 0) {
+                        time--;
+                        btn.onclick = null;
+                        setTimeout(function () {
+                            times(time);
+                        }, 1000)
+                        if (time == 0) {
+                            btn.onclick = function () {
+                                if (time == 0) {
+                                    less(time);
+                                } else {
+                                    times(time);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        })
+
+    }
+</script>
