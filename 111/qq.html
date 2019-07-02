@@ -28,13 +28,11 @@
                 $(".text").text(json[attr].inc);
                 var time = 0;
                 var number = Number($(".text").text());
-                function button() {
-                    btn.onclick = function () {
-                        if (time == 0) {
-                            less(time);
-                        } else {
-                            times(time);
-                        }
+                btn.onclick = function () {
+                    if (time == 0) {
+                        less(time);
+                    } else {
+                        times(time);
                     }
                 }
                 function less(num) {
@@ -50,7 +48,13 @@
                             times(time);
                         }, 1000)
                         if (time == 0) {
-                            button();
+                            btn.onclick = function () {
+                                if (time == 0) {
+                                    less(time);
+                                } else {
+                                    times(time);
+                                }
+                            }
                         }
                     }
                 }
